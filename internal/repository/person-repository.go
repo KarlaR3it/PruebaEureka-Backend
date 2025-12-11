@@ -2,7 +2,6 @@ package repository
 
 import (
 	"context"
-
 	"gorm.io/gorm"
 
 	"github.com/KarlaR3it/PruebaEureka-Backend/internal/models"

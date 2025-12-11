@@ -21,6 +21,5 @@ vendor/
 
 # Env files
 .env
-.env.*
 # Docker
 /db_data/

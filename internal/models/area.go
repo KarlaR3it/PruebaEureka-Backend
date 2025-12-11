@@ -16,3 +16,7 @@ type AreaResponse struct {
 	Name            string `json:"name"`
 	PersonsQuantity int    `json:"persons_quantity"`
 }
+
+func (Area) TableName() string {
+	return "areas"
+}

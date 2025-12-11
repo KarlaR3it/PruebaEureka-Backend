@@ -27,11 +27,9 @@ API REST desarrollada en Golang para el registro de personas y áreas de trabajo
    cd Backend-GO
    ```
 
-2. Copia el archivo de variables de entorno:
+2. Crea el archivo de variables de entorno:
 
-   ```sh
-   cp .env.example .env
-   ```
+   Usa `.env.example` como referencia.
 
 3. Levanta los servicios (backend y base de datos):
 
@@ -39,47 +37,30 @@ API REST desarrollada en Golang para el registro de personas y áreas de trabajo
    docker compose up -d --build
    ```
 
-4. (Opcional) Limpia los volúmenes y datos:
+   Nota: Usa docker compose up -d si solo quieres levantar los servicios sin reconstruir la imagen.
+
+4. (Opcional) Detener y limpiar los contenedores y volúmenes:
    ```sh
    docker compose down -v
    ```
 
-## Endpoints principales
+## Ejecutar Tests Unitarios
 
-- **Áreas**
+El proyecto incluye tests unitarios para las capas de repositorio, servicio y handler.
 
-  - `POST   /areas`    Crear área
-  - `GET    /areas`    Listar áreas
-  - `GET    /areas/count` Contar personas por área
+Para ejecutar todos los tests:
 
-- **Personas**
-  - `POST   /persons`   Crear persona
-  - `GET    /persons`   Listar personas
-
-## Ejemplos de uso
-
-### Crear un área
-
-```json
-{
-  "name": "Recursos Humanos"
-}
+```sh
+go test -v ./...
 ```
 
-### Crear una persona
+Para ejecutar test de una función específica:
 
-```json
-{
-  "name": "Juan Pérez",
-  "email": "juan.perez@email.com",
-  "area_id": 1
-}
+```sh
+go test -v ./test -run TestAreaHandler_Create
 ```
 
-## Probar con Postman
-
-- Base URL: `http://localhost:8084`
-- Ejemplo: `GET http://localhost:8084/areas`
+Los tests usan mocks (testify/mock y sqlmock) y no requieren una base de datos real.
 
 ## Colección de Postman
 
@@ -88,3 +69,22 @@ Puedes importar y probar todos los endpoints usando la colección incluida en la
 - `PruebaEureka.postman_collection.json`
 
 Importa este archivo en Postman para tener acceso rápido a todas las peticiones del backend.
+
+## Estructura del Proyecto
+
+```
+Backend-GO/
+├── cmd/
+│   └── main.go              # Punto de entrada de la aplicación
+├── internal/
+│   ├── models/              # Modelos de datos (Area, Person)
+│   ├── repository/          # Capa de acceso a datos
+│   ├── service/             # Lógica de negocio
+│   ├── handler/             # Controladores HTTP
+│   └── routes/              # Configuración de rutas
+├── test/                    # Tests unitarios
+├── docker-compose.yml       # Configuración de Docker
+├── Dockerfile               # Imagen del backend
+├── .env.example             # Variables de entorno de ejemplo
+└── README.md                # Este archivo
+```
