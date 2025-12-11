@@ -1,0 +1,64 @@
+{
+	"info": {
+		"_postman_id": "f9d4a9e9-2b69-480d-9a03-52c42cf34c0a",
+		"name": "PruebaEureka",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48760809",
+		"_collection_link": "https://karla-ramirez-e2108f06-2171592.postman.co/workspace/Karla's-Workspace~463e15c0-ff03-4e09-8c4d-946489375f95/collection/48760809-f9d4a9e9-2b69-480d-9a03-52c42cf34c0a?action=share&source=collection_link&creator=48760809"
+	},
+	"item": [
+		{
+			"name": "listar-areas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/areas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"areas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear-area",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"titulo\": \"Desarrollador Backend Go\",\r\n  \"estado\": \"abierta\",\r\n  \"area\": \"Tecnologia\",\r\n  \"pais\": \"Chile\",\r\n  \"localizacion\": \"Santiago\",\r\n  \"numero_vacantes\": 2,\r\n  \"descripcion\": \"Proyecto de migración de servicios.\",\r\n  \"base_educacional\": \"Ingeniería en Informática o afín\",\r\n  \"conocimientos_excluyentes\": \"Go, Gin, GORM, MySQL\",\r\n  \"renta_desde\": 1500000,\r\n  \"renta_hasta\": 2200000,\r\n  \"modalidad_trabajo\": \"remoto\",\r\n  \"tipo_servicio\": \"time & materials\",\r\n  \"nivel_experiencia\": \"senior\",\r\n  \"fecha_inicio_proyecto\": \"2025-10-15\",\r\n  \"usuario_id\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8084/areas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"areas"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
