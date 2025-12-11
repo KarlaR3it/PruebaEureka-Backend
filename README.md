@@ -2,7 +2,7 @@
 
 ## Descripción
 
-API REST desarrollada en Golang para el registro de personas y áreas de trabajo, usando MySQL como base de datos. Permite crear y consultar personas y áreas, con validaciones y mensajes claros de éxito o error.
+API REST desarrollada en Go para el registro de áreas de trabajo y personas asociadas a cada área. Utiliza MySQL como base de datos. Permite crear y consultar áreas y personas, con validaciones y mensajes claros de éxito o error. El proyecto incluye algunos tests unitarios. Si deseas una interfaz de usuario, puedes clonar el frontend de este proyecto aquí: https://github.com/KarlaR3it/PruebaEureka-Frontend.git
 
 ## Características principales
 
@@ -46,7 +46,7 @@ API REST desarrollada en Golang para el registro de personas y áreas de trabajo
 
 ## Ejecutar Tests Unitarios
 
-El proyecto incluye tests unitarios para las capas de repositorio, servicio y handler.
+El proyecto incluye tests unitarios para las capas de repositorio, servicio y handler de la entidad Area.
 
 Para ejecutar todos los tests:
 
