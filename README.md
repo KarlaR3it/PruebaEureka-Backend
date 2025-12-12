@@ -2,15 +2,18 @@
 
 ## Descripción
 
-API REST desarrollada en Go para el registro de áreas de trabajo y personas asociadas a cada área. Utiliza MySQL como base de datos. Permite crear y consultar áreas y personas, con validaciones y mensajes claros de éxito o error. El proyecto incluye algunos tests unitarios. Si deseas una interfaz de usuario, puedes clonar el frontend de este proyecto aquí: https://github.com/KarlaR3it/PruebaEureka-Frontend.git
+API REST desarrollada en Go para el registro de áreas de trabajo y personas asociadas a cada área. Utiliza MySQL como base de datos y sigue una arquitectura limpia con capas de handler, service y repository.
+
+**Frontend disponible:** https://github.com/KarlaR3it/PruebaEureka-Frontend.git
 
 ## Características principales
 
-- Crear y listar personas (nombre, correo electrónico único, área de trabajo).
-- Crear y listar áreas de trabajo (ej: Ventas, Recursos Humanos).
-- Consultar la cantidad de personas por área.
-- Todos los campos son obligatorios.
-- Respuestas claras de éxito o error en cada operación.
+- **Gestión de Personas**: Crear y listar personas con validación de email único
+- **Gestión de Áreas**: Crear y listar áreas con validación de nombre único
+- **Estadísticas**: Consultar cantidad de personas por área
+- **Validaciones**: Todos los campos obligatorios con mensajes claros de error
+- **Tests Unitarios**: Cobertura completa de handlers, services y repositories
+- **Arquitectura Limpia**: Separación clara de responsabilidades
 
 ## Requisitos
 
@@ -31,36 +34,53 @@ API REST desarrollada en Go para el registro de áreas de trabajo y personas aso
 
    Usa `.env.example` como referencia.
 
-3. Levanta los servicios (backend y base de datos):
+3. Levanta los servicios:
 
    ```sh
    docker compose up -d --build
    ```
 
-   Nota: Usa docker compose up -d si solo quieres levantar los servicios sin reconstruir la imagen.
+## Comandos Útiles de Docker
 
-4. (Opcional) Detener y limpiar los contenedores y volúmenes:
-   ```sh
-   docker compose down -v
-   ```
+```sh
+# Iniciar servicios en segundo plano
+docker compose up -d
+
+# Reconstruir e iniciar servicios
+docker compose up -d --build
+
+# Detener y limpiar contenedores y volúmenes
+docker compose down -v
+
+# Ver logs en tiempo real
+docker compose logs -f
+
+# Ver estado de los contenedores
+docker compose ps
+
+# Acceder al contenedor del backend
+docker compose exec backend sh
+
+# Acceder a la base de datos MySQL
+docker compose exec db mysql -u root -p
+```
 
 ## Ejecutar Tests Unitarios
 
-El proyecto incluye tests unitarios para las capas de repositorio, servicio y handler de la entidad Area.
-
-Para ejecutar todos los tests:
+El proyecto incluye tests unitarios completos para ambas entidades (Area y Person) en las capas de handler, service y repository.
 
 ```sh
+# Ejecutar todos los tests
 go test -v ./...
+
+# Ejecutar tests de un paquete específico
+go test -v ./test
+
+# Ejecutar un test específico
+go test -v ./test -run TestPersonHandler_Create
 ```
 
-Para ejecutar test de una función específica:
-
-```sh
-go test -v ./test -run TestAreaHandler_Create
-```
-
-Los tests usan mocks (testify/mock y sqlmock) y no requieren una base de datos real.
+**Nota:** Los tests usan mocks (testify/mock y sqlmock) y no requieren una base de datos real.
 
 ## Colección de Postman
 

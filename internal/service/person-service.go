@@ -25,7 +25,15 @@ func (s *personService) CreatePerson(ctx context.Context, person *models.Person)
 	if person.Name == "" || person.Email == "" || person.AreaID == 0 {
 		return fmt.Errorf("nombre, email y área son obligatorios")
 	}
-	// Aquí podrías validar unicidad de email si lo deseas (consultando el repo)
+
+	exists, err := s.repo.ExistsByEmail(ctx, person.Email)
+	if err != nil {
+		return fmt.Errorf("error al validar email: %v", err)
+	}
+	if exists {
+		return fmt.Errorf("el email %s ya está registrado", person.Email)
+	}
+
 	return s.repo.Create(ctx, person)
 }
 

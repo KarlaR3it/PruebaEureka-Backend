@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+
 	"gorm.io/gorm"
 
 	"github.com/KarlaR3it/PruebaEureka-Backend/internal/models"
@@ -11,6 +12,7 @@ type AreaRepository interface {
 	Create(ctx context.Context, area *models.Area) error
 	GetAll(ctx context.Context) ([]models.Area, error)
 	GetAreaCounts(ctx context.Context) ([]models.AreaResponse, error)
+	ExistsByName(ctx context.Context, name string) (bool, error)
 }
 
 type areaRepository struct {
@@ -40,4 +42,10 @@ func (r *areaRepository) GetAreaCounts(ctx context.Context) ([]models.AreaRespon
 		Group("areas.id, areas.name").
 		Scan(&results).Error
 	return results, err
+}
+
+func (r *areaRepository) ExistsByName(ctx context.Context, name string) (bool, error) {
+	var count int64
+	err := r.db.WithContext(ctx).Model(&models.Area{}).Where("name = ?", name).Count(&count).Error
+	return count > 0, err
 }

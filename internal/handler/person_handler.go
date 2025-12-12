@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+
 	"github.com/gin-gonic/gin"
 
 	"github.com/KarlaR3it/PruebaEureka-Backend/internal/models"
@@ -20,22 +21,27 @@ func NewPersonHandler(service service.PersonService) *PersonHandler {
 func (h *PersonHandler) Create(c *gin.Context) {
 	var person models.Person
 	if err := c.ShouldBindJSON(&person); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		response := models.NewErrorResponse(http.StatusBadRequest, err.Error())
+		c.JSON(http.StatusBadRequest, response)
 		return
 	}
 	if err := h.service.CreatePerson(c.Request.Context(), &person); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		response := models.NewErrorResponse(http.StatusBadRequest, err.Error())
+		c.JSON(http.StatusBadRequest, response)
 		return
 	}
-	c.JSON(http.StatusCreated, person)
+	response := models.NewSuccessResponse(person)
+	c.JSON(http.StatusCreated, response)
 }
 
 // GET /persons
 func (h *PersonHandler) GetAll(c *gin.Context) {
 	persons, err := h.service.GetAllPersons(c.Request.Context())
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		response := models.NewErrorResponse(http.StatusInternalServerError, err.Error())
+		c.JSON(http.StatusInternalServerError, response)
 		return
 	}
-	c.JSON(http.StatusOK, persons)
+	response := models.NewSuccessResponse(persons)
+	c.JSON(http.StatusOK, response)
 }
